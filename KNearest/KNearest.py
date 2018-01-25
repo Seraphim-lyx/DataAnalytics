@@ -24,13 +24,6 @@ class KNearest(object):
                 line = f.readline().strip()
         return self.dataSet
 
-    def getNeighborSet(self, k):
-        neighborSet = []
-        for i in range(k):
-            neighborSet.append(self.dataSet[-i-1])
-
-        return neighborSet
-
     def getDistance(self, dataSet1, dataSet2, attrLength):
         total = 0
         for j in range(attrLength):
@@ -38,13 +31,17 @@ class KNearest(object):
 
         return math.sqrt(total)
 
-    def getDistanceSet(self, dataInstance, neighborSet):
+    def getNeighborSet(self, dataInstance, k):
         distanceSet = []
-        for neighbor in neighborSet:
+        neighborSet = []
+        for s in self.dataSet:
             distanceSet.append(
-                (neighbor, self.getDistance(neighbor, dataInstance, 3)))
+                (s, self.getDistance(s, dataInstance, 3)))
         distanceSet.sort(key=operator.itemgetter(1))
-        return distanceSet
+        for i in range(k):
+            neighborSet.append(distanceSet[i][0])
+            # print(distanceSet[i])
+        return neighborSet
 
 
 # print(obj.getDistanceSet(data1, data2))
