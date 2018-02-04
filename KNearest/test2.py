@@ -34,7 +34,7 @@ datemin = TX[80]
 datemax = TX[-1]
 # print(TX[60])
 n_neighbors = 5
-knn = neighbors.KNeighborsRegressor(n_neighbors, weights='uniform')
+knn = neighbors.KNeighborsRegressor(n_neighbors, weights='distance')
 y_ = knn.fit(TrainingX, TrainingY).predict(TestX)
 
 
@@ -46,7 +46,7 @@ ax.xaxis.set_minor_locator(months)
 ax.set_xlim(datemin, datemax)
 
 ax.set_ylabel('passengers')
-ax.scatter(TX[80:], TestY, c='k', label='data')
+ax.plot(TX[80:], TestY, c='k', label='data')
 ax.plot(TX[80:], y_, linewidth=2, c='g', label='prediction')
 # plt.scatter(TestX, TestY, c='k', label='data')
 # plt.plot(TestX, y_, c='g', label='prediction')

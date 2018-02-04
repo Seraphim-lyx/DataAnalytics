@@ -1,4 +1,3 @@
-import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import dates
 import random
@@ -39,4 +38,4 @@ ax.set_ylabel('passenger')
 ax.plot(X, y, linewidth=2)
 fig.set_size_inches(18, 4)
 
-# plt.show()
+plt.show()

@@ -15,7 +15,7 @@ with open('iris.csv') as f:
         l = []
         for j in range(1, 5):
             l.append(float(i[j]))
-        if random.random() < 0.66:
+        if random.random() < 0.8:
             TrainingX.append(l)
             TrainingY.append(i[-1])
         else:
