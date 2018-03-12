@@ -86,8 +86,8 @@ if __name__ == '__main__':
     for act in activation:
         layers = ()
         neutrons = 100
+        avgAccuracy = []
         print("the activation is {0}".format(act))
-        plt.subplot()
         for i in range(10):
             accuracy = []
             layers = layers + (neutrons,)
@@ -96,3 +96,11 @@ if __name__ == '__main__':
                 accuracy.append(obj.dataTrain(i, layers, act))
             print("the layers is {0}, the average accuracy is {1}".format(
                 layers, sum(accuracy) / 5))
+            avgAccuracy.append(sum(accuracy)/5)
+        plt.subplot()
+        plt.plot([i for i in range(10)], avgAccuracy, label = act)
+        plt.xlabel('layers')
+        plt.ylabel('accuracy')
+        leg = plt.legend(loc='best', ncol=2, mode="expand", shadow=True, fancybox=True)
+        leg.get_frame().set_alpha(0.5)
+    plt.show()
