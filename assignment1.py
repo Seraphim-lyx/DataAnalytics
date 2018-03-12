@@ -29,6 +29,13 @@ class classification(object):
                     self.TestX.append(l)
                     self.TestY.append(i[-1])
 
+    def countAccuracy(self, y_):
+        count = 0
+        for i in range(len(self.TestY)):
+            if y_[i] == self.TestY[i]:
+                count += 1
+        return count / len(self.TestY)
+
 
 c = classification()
 c.readData('iris.csv')
@@ -39,21 +46,15 @@ clf = MLPClassifier(solver='lbfgs', alpha=1e-5,
                     hidden_layer_sizes=(15,), random_state=1)
 clf.fit(c.TrainingX, c.TrainingY)
 y_ = clf.predict(c.TestX)
-count = 0
-for i in range(len(c.TestY)):
-    if c.TestY[i] == y_[i]:
-        count += 1
-print('Accuracy for neural network is:', count/len(c.TestY))
+
+print('Accuracy for neural network is:', c.countAccuracy(y_))
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 # KNearest
 clf = neighbors.KNeighborsClassifier(5, weights='distance')
 y_ = clf.fit(c.TrainingX, c.TrainingY).predict(c.TestX)
-count = 0
-for i in range(len(c.TestY)):
-    if c.TestY[i] == y_[i]:
-        count += 1
-print('Accuracy for KNearest is', count/len(c.TestY))
+
+print('Accuracy for KNearest is', c.countAccuracy(y_))
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 # Support Vector Machine
@@ -61,10 +62,6 @@ clf = svm.SVC()
 
 clf.fit(c.TrainingX, c.TrainingY)
 y_ = clf.predict(c.TestX)
-count = 0
-for i in range(len(c.TestY)):
-    if c.TestY[i] == y_[i]:
-        count += 1
 
 
-print('Accuracy for Support Vector Machine is:', count/len(c.TestY))
+print('Accuracy for Support Vector Machine is:', c.countAccuracy(y_))
