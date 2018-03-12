@@ -87,6 +87,7 @@ if __name__ == '__main__':
         layers = ()
         neutrons = 100
         print("the activation is {0}".format(act))
+        plt.subplot()
         for i in range(10):
             accuracy = []
             layers = layers + (neutrons,)
