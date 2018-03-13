@@ -1,3 +1,1 @@
-f = open('iris.csv')
-
-print(f.readlines(150))
+import numpy as np

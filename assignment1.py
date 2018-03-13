@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 
+from sklearn.naive_bayes import GaussianNB
 from sklearn.neural_network import MLPClassifier
 from sklearn import neighbors
 from sklearn import svm
@@ -65,3 +66,11 @@ y_ = clf.predict(c.TestX)
 
 
 print('Accuracy for Support Vector Machine is:', c.countAccuracy(y_))
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+# Naive Bayes
+gnb = GaussianNB()
+gnb.fit(c.TrainingX, c.TrainingY)
+y_ = gnb.predict(c.TestX)
+
+print('Accuracy for Gaussian Naive Bayes is', c.countAccuracy(y_))
