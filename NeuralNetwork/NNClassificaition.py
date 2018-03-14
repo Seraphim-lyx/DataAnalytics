@@ -5,6 +5,7 @@ import random
 import matplotlib
 
 from sklearn.neural_network import MLPClassifier
+from sklearn.preprocessing import StandardScaler
 
 
 class NNClassification(object):
@@ -19,6 +20,7 @@ class NNClassification(object):
         """
         load and shuffle data from dataset
         """
+
         with open(filename) as f:
             lines = csv.reader(f)
             X = [i for i in lines]
@@ -30,6 +32,7 @@ class NNClassification(object):
                     l.append(float(i[j]))
                 self.setX.append(l)
                 self.setY.append(i[-1])
+
         #     if random.random() < 0.7:
         #         TrainingX.append(l)
         #         TrainingY.append(i[-1])
@@ -41,6 +44,7 @@ class NNClassification(object):
         """
         train data with cross validation
         """
+
         TrainingX = []
         TrainingY = []
         TestX = []
@@ -57,6 +61,10 @@ class NNClassification(object):
         del TrainingY[i * size:
                       i * size + size]
 
+        scaler = StandardScaler()
+        scaler.fit(TrainingX)
+        TrainingX = scaler.transform(TrainingX)
+        TestX = scaler.transform(TestX)
         clf = MLPClassifier(solver='lbfgs', alpha=1e-5,
                             hidden_layer_sizes=layers, random_state=1,
                             activation=activation)
@@ -98,9 +106,10 @@ if __name__ == '__main__':
                 layers, sum(accuracy) / 5))
             avgAccuracy.append(sum(accuracy)/5)
         plt.subplot()
-        plt.plot([i for i in range(10)], avgAccuracy, label = act)
+        plt.plot([i for i in range(10)], avgAccuracy, label=act)
         plt.xlabel('layers')
         plt.ylabel('accuracy')
-        leg = plt.legend(loc='best', ncol=2, mode="expand", shadow=True, fancybox=True)
+        leg = plt.legend(loc='best', ncol=2, mode="expand",
+                         shadow=True, fancybox=True)
         leg.get_frame().set_alpha(0.5)
     plt.show()
